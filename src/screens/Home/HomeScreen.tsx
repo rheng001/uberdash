@@ -13,6 +13,8 @@ import CategoryList from '@components/CategoryList';
 import {SearchProvider} from '@context/SearchContext';
 import Restaurants from '@components/Restaurants';
 
+import PopularList from '@components/PopularList';
+
 const HomeScreen = () => {
   return (
     <SafeAreaView style={{backgroundColor: 'white'}}>
@@ -22,8 +24,9 @@ const HomeScreen = () => {
           contentInsetAdjustmentBehavior="automatic"
           nestedScrollEnabled>
           <Header />
-          <Search />
+          {/* <Search /> */}
           <CategoryList />
+          <PopularList />
           <Restaurants />
         </ScrollView>
       </SearchProvider>

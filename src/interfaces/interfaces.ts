@@ -37,8 +37,31 @@ export type HomeStackParams = {
   };
 };
 
-export type RootStackParams = {
+export type BrowseStackParams = {
   Home: undefined;
+  Browse: undefined;
+  User: undefined;
+  Restaurants: {
+    id: number;
+    name: string;
+  };
+};
+
+export type CartStackParams = {
+  Home: undefined;
+  Browse: undefined;
+  Cart: undefined;
+  User: undefined;
+  Restaurants: {
+    id: number;
+    name: string;
+  };
+};
+
+export type RootStackParams = {
+  HomeStack: NavigatorScreenParams<HomeStackParams>;
+  BrowseStack: BrowseStackParams;
+  CartStack: CartStackParams;
   UserStack: UserStackParams;
   RestaurantStack: NavigatorScreenParams<RestaurantStackParams>;
   Restaurants: {

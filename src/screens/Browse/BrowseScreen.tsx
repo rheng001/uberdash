@@ -1,9 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-interface BrowseScreenProps {}
-
-const BrowseScreen: React.FC<BrowseScreenProps> = ({}) => {
+const BrowseScreen = ({}) => {
   return (
     <View>
       <Text>BrowseScreen</Text>

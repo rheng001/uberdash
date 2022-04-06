@@ -1,16 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-interface OrderScreenProps {}
-
-const OrderScreen: React.FC<OrderScreenProps> = ({}) => {
+const CartScreen = ({}) => {
   return (
     <View>
-      <Text>OrderScreen</Text>
+      <Text>CartScreen</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default OrderScreen;
+export default CartScreen;
