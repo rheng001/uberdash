@@ -14,6 +14,7 @@ import {useQuery} from 'react-query';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import {viewportWidth, viewportHeight} from '@common/styles';
+import TopBackNavigation from '@components/TopBackNavigation';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Restaurants'>;
 
@@ -34,6 +35,7 @@ const RestaurantScreen = ({route}: Props) => {
   console.log('data is' + JSON.stringify(data));
   return (
     <View>
+      <TopBackNavigation />
       <FlatList
         data={data.photos}
         keyExtractor={photos => uuidv4()}

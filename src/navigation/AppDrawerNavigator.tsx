@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import {QueryClient, QueryClientProvider} from 'react-query';
@@ -9,27 +8,23 @@ import {
   RootStackParams,
   RestaurantStackParams,
   UserStackParams,
-  AuthStackParams,
 } from '@interfaces/interfaces';
 
 import HomeScreen from '@screens/Home/HomeScreen';
 import RestaurantScreen from '@screens/Restaurant/RestaurantScreen';
 import UserScreen from '@screens/User/UserScreen';
-import LoginScreen from '@screens/Login/LoginScreen';
-import SignUpScreen from '@screens/SignUp/SignUpScreen';
-
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeIcon from '@assets/icons/HomeIcon';
 import RestaurantIcon from '@assets/icons/RestaurantIcon';
 import UserIcon from '@assets/icons/UserIcon';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const queryClient = new QueryClient();
 
-const RootStack = createBottomTabNavigator<RootStackParams>();
+const RootStack = createDrawerNavigator<RootStackParams>();
 const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();
 const UserStack = createNativeStackNavigator<UserStackParams>();
-const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
 const UserScreenStack = () => {
   return (
@@ -39,17 +34,6 @@ const UserScreenStack = () => {
       <UserStack.Screen name="User" component={UserScreen} />
       <UserStack.Screen name="Restaurants" component={RestaurantScreen} />
     </UserStack.Navigator>
-  );
-};
-
-const AuthScreenStack = () => {
-  return (
-    <AuthStack.Navigator
-      initialRouteName="Login"
-      screenOptions={{headerShown: false}}>
-      <AuthStack.Screen name="Login" component={LoginScreen} />
-      <AuthStack.Screen name="SignUp" component={SignUpScreen} />
-    </AuthStack.Navigator>
   );
 };
 
@@ -67,14 +51,10 @@ const RestaurantScreenStack = () => {
   );
 };
 
-const App = () => {
-  // const user = useSelector((state: AppState) => state.currentUser)
-  const user = true;
-  const renderContent = () => {
-    const isLoggedIn = true;
-
-    if (isLoggedIn || user) {
-      return (
+const AppDrawerNavigator = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
         <RootStack.Navigator
           initialRouteName="Home"
           screenOptions={{
@@ -82,8 +62,7 @@ const App = () => {
               backgroundColor: '#f4511e',
             },
             // headerShown: false,
-            tabBarActiveTintColor: '#E67A15',
-            tabBarInactiveTintColor: 'gray',
+            drawerInactiveTintColor: 'gray',
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold',
@@ -93,43 +72,36 @@ const App = () => {
             name="Home"
             component={HomeScreen}
             options={{
-              tabBarIcon: ({color, size}) => (
+              drawerIcon: ({color, size}) => (
                 <HomeIcon color={color} size={size} />
               ),
-              tabBarLabel: 'Home',
+              drawerLabel: 'Home',
             }}
           />
           <RootStack.Screen
             name="UserStack"
             component={UserScreenStack}
             options={{
-              tabBarIcon: ({color, size}) => (
+              drawerIcon: ({color, size}) => (
                 <UserIcon color={color} size={size} />
               ),
-              tabBarLabel: 'Profile',
+              drawerLabel: 'Profile',
             }}
           />
           <RootStack.Screen
             name="RestaurantStack"
             component={RestaurantScreenStack}
             options={{
-              tabBarIcon: ({color, size}) => (
+              drawerIcon: ({color, size}) => (
                 <RestaurantIcon color={color} size={size} />
               ),
-              tabBarLabel: 'Restaurants',
+              drawerLabel: 'Restaurants',
             }}
           />
         </RootStack.Navigator>
-      );
-    } else {
-      return <AuthScreenStack />;
-    }
-  };
-  return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>{renderContent()}</NavigationContainer>
+      </NavigationContainer>
     </QueryClientProvider>
   );
 };
 
-export default App;
+export default AppDrawerNavigator;

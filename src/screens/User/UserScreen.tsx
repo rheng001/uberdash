@@ -26,9 +26,7 @@ const UserScreen = ({navigation}: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 50,
-  },
+  container: {},
 });
 
 export default UserScreen;

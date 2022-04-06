@@ -15,6 +15,11 @@ export type RestaurantStackParams = {
   };
 };
 
+export type AuthStackParams = {
+  Login: undefined;
+  SignUp: undefined;
+};
+
 export type UserStackParams = {
   User: undefined;
   Restaurants: {
