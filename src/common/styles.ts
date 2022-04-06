@@ -9,3 +9,5 @@ export const elevation = {
 
 export const {width: viewportWidth, height: viewportHeight} =
   Dimensions.get('window');
+
+  

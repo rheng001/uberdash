@@ -31,11 +31,10 @@ const CategoryItem = ({
       <View
         style={[
           styles.container,
-          styles.elevation,
           index === 0 ? {marginLeft: 25} : {marginLeft: 15},
-          active
-            ? {backgroundColor: 'rgb(241, 186, 87)'}
-            : {backgroundColor: 'white'},
+          // active
+          //   ? {backgroundColor: 'rgb(241, 186, 87)'}
+          //   : {backgroundColor: 'white'},
         ]}>
         <View style={styles.imageContainer}>
           <Image source={imageUrl} style={styles.image} />
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
   container: {
     width: 70,
     height: 100,
-    borderRadius: 50,
     marginVertical: 15,
     marginHorizontal: 25,
     backgroundColor: 'white',
@@ -59,13 +57,13 @@ const styles = StyleSheet.create({
   },
   elevation,
   image: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
   },
   imageContainer: {
     width: 50,
     height: 50,
-    backgroundColor: 'white',
+    backgroundColor: 'lightgray',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,

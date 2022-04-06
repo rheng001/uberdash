@@ -13,9 +13,9 @@ import CategoryList from '@components/CategoryList';
 import {SearchProvider} from '@context/SearchContext';
 import Restaurants from '@components/Restaurants';
 
-const HomeScreen = () => {
+const HomeScreen2 = () => {
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
+    <SafeAreaView>
       <StatusBar />
       <SearchProvider>
         <ScrollView
@@ -33,4 +33,4 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({});
 
-export default HomeScreen;
+export default HomeScreen2;

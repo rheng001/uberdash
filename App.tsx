@@ -10,6 +10,7 @@ import {
   RestaurantStackParams,
   UserStackParams,
   AuthStackParams,
+  HomeStackParams,
 } from '@interfaces/interfaces';
 
 import HomeScreen from '@screens/Home/HomeScreen';
@@ -30,6 +31,7 @@ const RootStack = createBottomTabNavigator<RootStackParams>();
 const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();
 const UserStack = createNativeStackNavigator<UserStackParams>();
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
+const HomeStack = createNativeStackNavigator<HomeStackParams>();
 
 const UserScreenStack = () => {
   return (
@@ -81,7 +83,7 @@ const App = () => {
             headerStyle: {
               backgroundColor: '#f4511e',
             },
-            // headerShown: false,
+            headerShown: false,
             tabBarActiveTintColor: '#E67A15',
             tabBarInactiveTintColor: 'gray',
             headerTintColor: '#fff',
@@ -106,7 +108,7 @@ const App = () => {
               tabBarIcon: ({color, size}) => (
                 <UserIcon color={color} size={size} />
               ),
-              tabBarLabel: 'Profile',
+              tabBarLabel: 'Account',
             }}
           />
           <RootStack.Screen

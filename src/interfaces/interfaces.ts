@@ -7,6 +7,11 @@ export interface category {
   name: string;
 }
 
+export type AuthStackParams = {
+  Login: undefined;
+  SignUp: undefined;
+};
+
 export type RestaurantStackParams = {
   User: undefined;
   Restaurants: {
@@ -15,12 +20,16 @@ export type RestaurantStackParams = {
   };
 };
 
-export type AuthStackParams = {
-  Login: undefined;
-  SignUp: undefined;
+export type UserStackParams = {
+  User: undefined;
+  Restaurants: {
+    id: number;
+    name: string;
+  };
 };
 
-export type UserStackParams = {
+export type HomeStackParams = {
+  Home: undefined;
   User: undefined;
   Restaurants: {
     id: number;
