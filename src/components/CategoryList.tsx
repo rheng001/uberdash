@@ -43,10 +43,43 @@ const CategoryList = () => {
     },
   ];
 
+  const items = [
+    {
+      name: 'Pick-up',
+      imageUrl: require('../assets/images/shopping-bag.png'),
+      id: uuidv4(),
+    },
+    {
+      name: 'Soft Drinks',
+      imageUrl: require('../assets/images/soft-drink.png'),
+      id: uuidv4(),
+    },
+    {
+      name: 'Bakery Items',
+      imageUrl: require('../assets/images/bread.png'),
+      id: uuidv4(),
+    },
+    {
+      name: 'Fast Foods',
+      imageUrl: require('../assets/images/fast-food.png'),
+      id: uuidv4(),
+    },
+    {
+      name: 'Deals',
+      imageUrl: require('../assets/images/deals.png'),
+      id: uuidv4(),
+    },
+    {
+      name: 'Desserts',
+      imageUrl: require('../assets/images/desserts.png'),
+      id: uuidv4(),
+    },
+  ];
+
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
-        data={commonCategories}
+        data={items}
         renderItem={({item, index}) => {
           return (
             <CategoryItem
@@ -66,6 +99,13 @@ const CategoryList = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    paddingVertical: 15,
+    marginTop: 10,
+    // paddingLeft: 20,
+  },
+});
 
 export default CategoryList;

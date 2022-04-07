@@ -29,7 +29,7 @@ const Restaurants: React.FC<RestaurantsProps> = ({}) => {
     return <Text>Error...</Text>;
   }
 
-  console.log(restuarants);
+  // console.log(restuarants);
 
   return (
     <View style={styles.container}>
@@ -41,6 +41,7 @@ const Restaurants: React.FC<RestaurantsProps> = ({}) => {
           return <RestaurantItem restaurant={item} />;
         }}
         horizontal
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
@@ -48,15 +49,18 @@ const Restaurants: React.FC<RestaurantsProps> = ({}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 25,
-    marginVertical: 15,
+    // marginHorizontal: 25,
+    marginTop: 10,
     flex: 1,
-    height: 250,
+    height: 290,
+    backgroundColor: 'white',
+    padding: 15,
   },
   header: {
-    fontWeight: 'bold',
+    fontWeight: '900',
     fontSize: 25,
     paddingBottom: 10,
+    color: 'black',
   },
 });
 

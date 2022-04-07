@@ -1,42 +1,83 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 interface HeaderProps {}
 
-const Header: React.FC<HeaderProps> = ({}) => {
+interface HeaderButtonProps {
+  text: string;
+  btnColor: string;
+  textColor: string;
+  activeTab: string;
+  setActiveTab: (activeTab: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = () => {
+  const [activeTab, setActiveTab] = useState<string>('Delivery');
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.textDelivery}>Delivery</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.textPickup}>Pickup</Text>
-      </TouchableOpacity>
+      <HeaderButton
+        text={'Delivery'}
+        btnColor="black"
+        textColor="white"
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      <HeaderButton
+        text={'Pickup'}
+        btnColor="white"
+        textColor="black"
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
     </View>
+  );
+};
+
+const HeaderButton = ({text, activeTab, setActiveTab}: HeaderButtonProps) => {
+  return (
+    <TouchableOpacity
+      style={[text === activeTab ? styles.activeButton : styles.inActivebutton]}
+      onPress={() => setActiveTab(text)}>
+      <Text
+        style={[text === activeTab ? styles.activeText : styles.inActiveText]}>
+        {text}
+      </Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: 15,
     marginHorizontal: 25,
     flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
+  activeButton: {
     backgroundColor: 'black',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 25,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 30,
     marginHorizontal: 15,
   },
-  textDelivery: {
-    color: 'white',
+  inActivebutton: {
+    backgroundColor: 'white',
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 30,
+    marginHorizontal: 15,
   },
-  textPickup: {
-    color: 'gray',
+  activeText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '900',
+  },
+  inActiveText: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: '900',
   },
 });
 export default Header;

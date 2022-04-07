@@ -27,7 +27,7 @@ const CategoryItem = ({
   handlePress,
 }: CategoryItemProps) => {
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity onPress={handlePress} activeOpacity={0.5}>
       <View
         style={[
           styles.container,
@@ -47,30 +47,32 @@ const CategoryItem = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 70,
-    height: 100,
-    marginVertical: 15,
+    // width: 100,
+    // height: 100,
+    // marginVertical: 15,
     marginHorizontal: 25,
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
   elevation,
   image: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 40,
+    resizeMode: 'contain',
   },
   imageContainer: {
     width: 50,
     height: 50,
-    backgroundColor: 'lightgray',
+    // backgroundColor: 'lightgray',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
     marginBottom: 5,
   },
   header: {
-    fontWeight: 'bold',
+    fontWeight: '900',
+    fontSize: 13,
+    color: 'black',
   },
 });
 

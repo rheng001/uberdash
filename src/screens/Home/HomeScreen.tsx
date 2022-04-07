@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   FlatList,
+  View,
 } from 'react-native';
 
 import Header from '@components/Header';
@@ -17,14 +18,19 @@ import PopularList from '@components/PopularList';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
+    <SafeAreaView style={{backgroundColor: '#eee', flex: 1}}>
       <StatusBar />
       <SearchProvider>
         <ScrollView
+          horizontal={false}
+          style={{flex: 1, width: '100%', height: '100%'}}
+          keyboardShouldPersistTaps={'handled'}
           contentInsetAdjustmentBehavior="automatic"
           nestedScrollEnabled>
-          <Header />
-          {/* <Search /> */}
+          <View style={{backgroundColor: 'white', padding: 15}}>
+            <Header />
+            <Search />
+          </View>
           <CategoryList />
           <PopularList />
           <Restaurants />

@@ -36,7 +36,7 @@ export const getBusiness = async ({queryKey}: any) => {
 
 export const getPopular = async ({queryKey}: any) => {
   const response = await fetch(
-    `https://api.yelp.com/v3/businesses/search?&attributes=hot_and_new&location=Paramount`,
+    `https://api.yelp.com/v3/businesses/search?&attributes=hot_and_new&location=${queryKey[1]}`,
     {
       headers: {
         Authorization:

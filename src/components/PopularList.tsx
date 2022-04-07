@@ -8,13 +8,15 @@ import RestaurantItem from '@components/RestaurantItem';
 import {viewportHeight, viewportWidth} from '@common/styles';
 
 const PopularList = ({}) => {
-  const {category, searchTerm} = useContext(SearchContext) as SearchContextType;
+  const {category, city, searchTerm} = useContext(
+    SearchContext,
+  ) as SearchContextType;
 
   const {
     data: restuarants,
     isLoading,
     isError,
-  } = useQuery(['popular', category], getPopular, {
+  } = useQuery(['popular', city], getPopular, {
     keepPreviousData: true,
     enabled: Boolean(category),
   });
@@ -27,7 +29,7 @@ const PopularList = ({}) => {
     return <Text>Error...</Text>;
   }
 
-  console.log(restuarants);
+  // console.log(restuarants);
 
   return (
     <View style={styles.container}>
@@ -39,6 +41,7 @@ const PopularList = ({}) => {
           return <RestaurantItem restaurant={item} />;
         }}
         horizontal
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
@@ -46,15 +49,18 @@ const PopularList = ({}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 25,
-    marginVertical: 15,
+    // marginHorizontal: 25,
+    marginTop: 10,
     flex: 1,
-    height: 250,
+    height: 290,
+    backgroundColor: 'white',
+    padding: 15,
   },
   header: {
-    fontWeight: 'bold',
+    fontWeight: '900',
     fontSize: 25,
     paddingBottom: 10,
+    color: 'black',
   },
 });
 
