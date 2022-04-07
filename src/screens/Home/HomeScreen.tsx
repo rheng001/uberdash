@@ -32,8 +32,8 @@ const HomeScreen = () => {
             <Search />
           </View>
           <CategoryList />
-          <PopularList />
           <Restaurants />
+          <PopularList />
         </ScrollView>
       </SearchProvider>
     </SafeAreaView>

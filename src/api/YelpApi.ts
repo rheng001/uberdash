@@ -1,8 +1,8 @@
 import Config from 'react-native-config';
 
-export const doBusinessSearch = async ({queryKey}: any) => {
+export const getBusiness = async ({queryKey}: any) => {
   const response = await fetch(
-    `https://api.yelp.com/v3/businesses/search?term=${queryKey[1]}&location=Paramount`,
+    `https://api.yelp.com/v3/businesses/${queryKey[1]}`,
     {
       headers: {
         Authorization: `Bearer ${Config.YELP_API_KEY}`,
@@ -17,9 +17,9 @@ export const doBusinessSearch = async ({queryKey}: any) => {
   return response.json();
 };
 
-export const getBusiness = async ({queryKey}: any) => {
+export const getCategorySearch = async ({queryKey}: any) => {
   const response = await fetch(
-    `https://api.yelp.com/v3/businesses/${queryKey[1]}`,
+    `https://api.yelp.com/v3/businesses/search?term=${queryKey[1]}&location=${queryKey[2]}`,
     {
       headers: {
         Authorization: `Bearer ${Config.YELP_API_KEY}`,

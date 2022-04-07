@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {doBusinessSearch} from '@api/YelpApi';
+import {getCategorySearch} from '@api/YelpApi';
 import {useQuery} from 'react-query';
 import {SearchContextType, SearchContext} from '@context/SearchContext';
 import RestaurantItem from '@components/RestaurantItem';
@@ -10,13 +10,15 @@ import {viewportHeight, viewportWidth} from '@common/styles';
 interface RestaurantsProps {}
 
 const Restaurants: React.FC<RestaurantsProps> = ({}) => {
-  const {category, searchTerm} = useContext(SearchContext) as SearchContextType;
+  const {category, city, searchTerm} = useContext(
+    SearchContext,
+  ) as SearchContextType;
 
   const {
     data: restuarants,
     isLoading,
     isError,
-  } = useQuery(['search_term', category], doBusinessSearch, {
+  } = useQuery(['search_term', category, city], getCategorySearch, {
     keepPreviousData: true,
     enabled: Boolean(category),
   });
@@ -33,7 +35,7 @@ const Restaurants: React.FC<RestaurantsProps> = ({}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Top Restaurants</Text>
+      <Text style={styles.header}>Search Results</Text>
       <FlatList
         data={restuarants.businesses}
         keyExtractor={restuarants => restuarants.id}
