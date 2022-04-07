@@ -7,6 +7,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import Config from 'react-native-config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -19,15 +20,11 @@ import {
 } from 'react-native-google-places-autocomplete';
 
 import {SearchContextType, SearchContext} from '@context/SearchContext';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const imageWidth = Math.round((viewportWidth * 9.5) / 10);
 
 const Search = () => {
-  const {searchTerm, searchCity} = useContext(
-    SearchContext,
-  ) as SearchContextType;
-  const [input, setInput] = useState<string>('');
+  const {searchCity} = useContext(SearchContext) as SearchContextType;
   const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
   const onFocus = () => {
@@ -45,7 +42,7 @@ const Search = () => {
         ref={ref}
         placeholder="Search"
         query={{
-          key: '',
+          key: Config.GOOGLE_MAPS_API_KEY,
           language: 'en',
         }}
         onPress={(data, details = null) => {
