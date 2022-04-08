@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {useAppDispatch, useAppSelector} from '@redux/hooks';
+import {useAppSelector} from '@redux/hooks';
 import {cartSelector} from '@redux/slices/cartSlice';
 interface ViewCartProps {}
 
@@ -23,7 +23,7 @@ const ViewCart: React.FC<ViewCartProps> = ({}) => {
         <View style={styles.container}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.buttonStyle}>
-              <Text style={styles.textStyle}>View Cart {totalUSD}</Text>
+              <Text style={styles.textStyle}>View Cart • {totalUSD}</Text>
             </TouchableOpacity>
           </View>
         </View>

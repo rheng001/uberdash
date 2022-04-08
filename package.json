@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'"
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
+    "clean": "npm start --reset-cache && rm -rf /tmp/metro-*"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.3.1",

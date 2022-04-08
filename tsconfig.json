@@ -13,7 +13,8 @@
       "@interfaces/*": ["./src/interfaces/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@redux/*": ["./src/redux/*"],
-      "@screens/*": ["./src/screens/*"]
+      "@screens/*": ["./src/screens/*"],
+      "@static/*": ["./src/static/*"]
     },
     "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "lib": [

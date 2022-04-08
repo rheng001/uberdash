@@ -65,6 +65,7 @@ export const cartSelector = (state: {cart: CartState}) => state.cart;
 export const {addToCart} = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.cart.value;
+export const selectedItems = (state: RootState) =>
+  state.cart.selectedItems.items;
 
 export default cartSlice.reducer;

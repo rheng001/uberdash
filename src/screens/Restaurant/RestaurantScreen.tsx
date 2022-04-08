@@ -81,7 +81,11 @@ const RestaurantScreen = ({route}: Props) => {
           {restaurant.categories.map(
             (category: RestaurantItem, index: number) => {
               return (
-                <Text style={styles.descriptionText}>{category.title} • </Text>
+                <View key={category.title}>
+                  <Text style={styles.descriptionText}>
+                    {category.title} •{' '}
+                  </Text>
+                </View>
               );
             },
           )}

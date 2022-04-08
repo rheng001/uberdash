@@ -4,69 +4,11 @@ import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import {addToCart} from '@redux/slices/cartSlice';
+import {addToCart, cartSelector, selectedItems} from '@redux/slices/cartSlice';
 import {useAppDispatch, useAppSelector} from '@redux/hooks';
+import {foods} from '@static/data';
 
 interface MenuItemProps {}
-
-const foods = [
-  {
-    title: 'Fried Rice 1',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 2',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 3',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 4',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 5',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 6',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 7',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-  {
-    title: 'Fried Rice 8',
-    description: 'With butter lettuce, tomato and sauce bechmel',
-    price: '$13.50',
-    image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
-    id: uuidv4(),
-  },
-];
 
 interface Food {
   title: string;
@@ -97,10 +39,10 @@ const Divider = () => {
 
 const FoodInfo = ({food}: FoodItem) => {
   return (
-    <View key={food.id} style={styles.foodInfo}>
+    <View style={styles.foodInfo}>
       <Text style={styles.titleStyle}>{food.title}</Text>
-      <Text>{food.description}</Text>
-      <Text>{food.price}</Text>
+      <Text style={styles.blackText}>{food.description}</Text>
+      <Text style={styles.blackText}>{food.price}</Text>
     </View>
   );
 };
@@ -115,6 +57,13 @@ const FoodImage = ({food}: any) => {
 
 const MenuItems = ({resturantName}: RestaurantName) => {
   const dispatch = useAppDispatch();
+  const {selectedItems} = useAppSelector(cartSelector);
+
+  const cartItems = selectedItems.items;
+
+  const isFoodInCart = (food: Food, cartItems: any) => {
+    return Boolean(cartItems.find((item: Food) => item.title === food.title));
+  };
 
   return (
     <View style={{marginBottom: 40}}>
@@ -137,6 +86,7 @@ const MenuItems = ({resturantName}: RestaurantName) => {
                     }),
                   )
                 }
+                isChecked={isFoodInCart(food, cartItems)}
               />
               <FoodInfo food={food} />
               <FoodImage food={food} />
@@ -162,11 +112,15 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 19,
     fontWeight: '600',
+    color: 'black',
   },
   image: {
     width: 100,
     height: 100,
     borderRadius: 8,
+  },
+  blackText: {
+    color: 'black',
   },
 });
 
