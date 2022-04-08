@@ -36,8 +36,14 @@ const CategoryItem = ({
           //   ? {backgroundColor: 'rgb(241, 186, 87)'}
           //   : {backgroundColor: 'white'},
         ]}>
-        <View style={styles.imageContainer}>
-          <Image source={imageUrl} style={styles.image} />
+        <View
+          style={[
+            styles.imageContainer,
+            active
+              ? {backgroundColor: 'rgb(241, 186, 87)'}
+              : {backgroundColor: 'white'},
+          ]}>
+          <Image source={imageUrl} style={[styles.image]} />
         </View>
         <Text style={styles.header}>{name}</Text>
       </View>

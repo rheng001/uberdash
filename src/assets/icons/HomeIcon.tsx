@@ -1,35 +1,16 @@
-import * as React from 'react';
-import Svg, {Rect, Path} from 'react-native-svg';
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface Props {
   color: string;
   size: number;
 }
 
-function HomeIcon(props: Props) {
-  return (
-    <Svg viewBox="0 0 512 512" width={props.size} height={props.size}>
-      <Rect
-        x={64}
-        y={176}
-        width={384}
-        height={256}
-        rx={28.87}
-        ry={28.87}
-        fill="none"
-        stroke={props.color}
-        strokeLinejoin="round"
-        strokeWidth={32}
-      />
-      <Path
-        stroke={props.color}
-        strokeLinecap="round"
-        strokeMiterlimit={10}
-        strokeWidth={32}
-        d="M144 80h224m-256 48h288"
-      />
-    </Svg>
-  );
-}
+const HomeIcon = (props: Props) => {
+  return <Icon name="home" size={props.size} color={props.color} />;
+};
+
+const styles = StyleSheet.create({});
 
 export default HomeIcon;
