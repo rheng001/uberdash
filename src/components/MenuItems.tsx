@@ -2,6 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
+
+import {addToCart} from '@redux/slices/cartSlice';
+import {useAppDispatch, useAppSelector} from '@redux/hooks';
 
 interface MenuItemProps {}
 
@@ -106,12 +110,22 @@ const FoodImage = ({food}: any) => {
 };
 
 const MenuItems = () => {
+  const dispatch = useAppDispatch();
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 40}}>
+    <View style={{marginBottom: 40}}>
       {foods.map(food => {
         return (
           <View key={food.id}>
             <View style={styles.menuItemStyle}>
+              <BouncyCheckbox
+                iconStyle={{
+                  borderColor: 'lightgray',
+                  borderRadius: 0,
+                }}
+                fillColor="green"
+                onPress={() => dispatch(addToCart(food))}
+              />
               <FoodInfo food={food} />
               <FoodImage food={food} />
             </View>
@@ -119,7 +133,7 @@ const MenuItems = () => {
           </View>
         );
       })}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -130,7 +144,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   foodInfo: {
-    width: 240,
+    width: 200,
     justifyContent: 'space-evenly',
   },
   titleStyle: {

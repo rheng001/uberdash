@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
-import {QueryClient, QueryClientProvider} from 'react-query';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -29,8 +28,6 @@ import RestaurantIcon from '@assets/icons/RestaurantIcon';
 import UserIcon from '@assets/icons/UserIcon';
 import SearchIcon from '@assets/icons/SearchIcon';
 import CartIcon from '@assets/icons/CartIcon';
-
-const queryClient = new QueryClient();
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
@@ -193,11 +190,7 @@ const RootNavigation = () => {
       return <AuthScreenStack />;
     }
   };
-  return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>{renderContent()}</NavigationContainer>
-    </QueryClientProvider>
-  );
+  return <NavigationContainer>{renderContent()}</NavigationContainer>;
 };
 
 export default RootNavigation;

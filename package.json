@@ -7,16 +7,20 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.1",
+    "@reduxjs/toolkit": "^1.8.1",
     "@types/react-native-vector-icons": "^6.4.10",
+    "@types/react-redux": "^7.1.23",
     "react": "17.0.2",
     "react-native": "0.67.4",
+    "react-native-bouncy-checkbox": "^2.1.10",
     "react-native-config": "^1.4.5",
     "react-native-gesture-handler": "^2.3.2",
     "react-native-get-random-values": "^1.7.2",
@@ -27,6 +31,8 @@
     "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
     "react-query": "^3.34.19",
+    "react-redux": "^7.2.8",
+    "redux-devtools-extension": "^2.13.9",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

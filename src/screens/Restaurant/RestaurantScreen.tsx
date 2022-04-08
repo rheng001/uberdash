@@ -8,6 +8,7 @@ import {
   FlatList,
   Image,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import {getBusiness} from '@api/YelpApi';
 import {useQuery} from 'react-query';
@@ -16,6 +17,7 @@ import {v4 as uuidv4} from 'uuid';
 import {viewportWidth, viewportHeight} from '@common/styles';
 import TopBackNavigation from '@components/TopBackNavigation';
 import MenuItems from '@components/MenuItems';
+import ViewCart from '@components/ViewCart';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Restaurants'>;
 
@@ -63,38 +65,42 @@ const RestaurantScreen = ({route}: Props) => {
       {/* <TopBackNavigation /> */}
 
       <Image source={{uri: restaurant.image_url}} style={styles.headerImage} />
-      <Text style={styles.name}>{restaurant.name}</Text>
-      <View style={styles.description}>
-        {restaurant.categories.map(
-          (category: RestaurantItem, index: number) => {
-            return (
-              <Text style={styles.descriptionText}>
-                {category.title}
-                {index < restaurant.categories.length - 1 ? ', ' : ''}
-              </Text>
-            );
-          },
-        )}
-        <Text style={styles.priceText}>
-          {restaurant.price ? restaurant.price : ''}
-        </Text>
-        <Text style={styles.descriptionText}>
-          ⭐ {restaurant.rating ? restaurant.rating : ''}
-        </Text>
-        <Text style={styles.descriptionText}>
-          {' '}
-          ({restaurant.review_count ? restaurant.review_count : ''})
-        </Text>
-      </View>
-      <Divider />
-      <MenuItems />
-      {/* <FlatList
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{marginBottom: 90}}>
+        <Text style={styles.name}>{restaurant.name}</Text>
+        <View style={styles.description}>
+          <Text style={styles.descriptionText}>
+            ★ {restaurant.rating ? restaurant.rating : ''}
+          </Text>
+          <Text style={styles.descriptionText}>
+            {' '}
+            ({restaurant.review_count ? restaurant.review_count : ''} ratings)
+            {' • '}
+          </Text>
+          {restaurant.categories.map(
+            (category: RestaurantItem, index: number) => {
+              return (
+                <Text style={styles.descriptionText}>{category.title} • </Text>
+              );
+            },
+          )}
+          <Text style={styles.priceText}>
+            {restaurant.price ? restaurant.price : '$'}
+          </Text>
+        </View>
+        <Divider />
+        <MenuItems />
+
+        {/* <FlatList
         data={data.photos}
         keyExtractor={photos => uuidv4()}
         renderItem={({item}) => {
           return <Image source={{uri: item}} style={styles.image} />;
         }}
       /> */}
+      </ScrollView>
+      <ViewCart />
     </View>
   );
 };
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: viewportWidth,
-    height: 200,
+    height: 150,
   },
   name: {
     fontSize: 29,
@@ -123,11 +129,10 @@ const styles = StyleSheet.create({
   },
   priceText: {
     color: 'green',
-    marginHorizontal: 10,
   },
   descriptionText: {
-    fontWeight: '400',
-    fontSize: 12,
+    fontWeight: '600',
+    fontSize: 13,
     color: 'black',
   },
 });

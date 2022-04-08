@@ -23,6 +23,7 @@ module.exports = {
           '@context': './src/context',
           '@interfaces': './src/interfaces',
           '@navigation': './src/navigation',
+          '@redux': './src/redux',
           '@screens': './src/screens',
         },
       },
