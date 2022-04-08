@@ -11,56 +11,56 @@ interface MenuItemProps {}
 
 const foods = [
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 1',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 2',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 3',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 4',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 5',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 6',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 7',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
     id: uuidv4(),
   },
   {
-    title: 'Lasagna',
+    title: 'Fried Rice 8',
     description: 'With butter lettuce, tomato and sauce bechmel',
     price: '$13.50',
     image: 'https://i.ytimg.com/vi/BKxGodX9NGg/maxresdefault.jpg',
@@ -77,6 +77,10 @@ interface Food {
 
 interface FoodItem {
   food: Food;
+}
+
+interface RestaurantName {
+  resturantName: string;
 }
 
 const Divider = () => {
@@ -109,7 +113,7 @@ const FoodImage = ({food}: any) => {
   );
 };
 
-const MenuItems = () => {
+const MenuItems = ({resturantName}: RestaurantName) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -124,7 +128,15 @@ const MenuItems = () => {
                   borderRadius: 0,
                 }}
                 fillColor="green"
-                onPress={() => dispatch(addToCart(food))}
+                onPress={checkboxValue =>
+                  dispatch(
+                    addToCart({
+                      ...food,
+                      resturantName,
+                      checkboxValue: checkboxValue,
+                    }),
+                  )
+                }
               />
               <FoodInfo food={food} />
               <FoodImage food={food} />

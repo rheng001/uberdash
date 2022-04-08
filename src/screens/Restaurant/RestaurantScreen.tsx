@@ -90,7 +90,7 @@ const RestaurantScreen = ({route}: Props) => {
           </Text>
         </View>
         <Divider />
-        <MenuItems />
+        <MenuItems resturantName={restaurant.name} />
 
         {/* <FlatList
         data={data.photos}
