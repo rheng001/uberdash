@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import ModalBottomSheet from '@components/ModalBottomSheet';
 
 const CartScreen = ({}) => {
   return (
-    <View>
-      <Text>CartScreen</Text>
-    </View>
+    <>
+      <ModalBottomSheet />
+    </>
   );
 };
 

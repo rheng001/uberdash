@@ -16,6 +16,7 @@ import {
 import HomeScreen from '@screens/Home/HomeScreen';
 import BrowseScreen from '@screens/Browse/BrowseScreen';
 import CartScreen from '@screens/Cart/CartScreen';
+import OrderScreen from '@screens/Cart/OrderScreen';
 import RestaurantScreen from '@screens/Restaurant/RestaurantScreen';
 import UserScreen from '@screens/User/UserScreen';
 import LoginScreen from '@screens/Login/LoginScreen';
@@ -45,6 +46,7 @@ const HomeScreenStack = () => {
       <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Screen name="User" component={UserScreen} />
       <HomeStack.Screen name="Restaurants" component={RestaurantScreen} />
+      <HomeStack.Screen name="Order" component={OrderScreen} />
     </HomeStack.Navigator>
   );
 };

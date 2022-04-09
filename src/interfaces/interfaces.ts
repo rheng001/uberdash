@@ -35,6 +35,7 @@ export type HomeStackParams = {
     id: number;
     name: string;
   };
+  Order: undefined;
 };
 
 export type BrowseStackParams = {

@@ -61,51 +61,48 @@ const RestaurantScreen = ({route}: Props) => {
 
   console.log('data is' + JSON.stringify(restaurant));
   return (
-    <View style={{height: viewportHeight}}>
-      {/* <TopBackNavigation /> */}
+    <>
+      <View style={{height: viewportHeight}}>
+        {/* <TopBackNavigation /> */}
 
-      <Image source={{uri: restaurant.image_url}} style={styles.headerImage} />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{marginBottom: 90}}>
-        <Text style={styles.name}>{restaurant.name}</Text>
-        <View style={styles.description}>
-          <Text style={styles.descriptionText}>
-            ★ {restaurant.rating ? restaurant.rating : ''}
-          </Text>
-          <Text style={styles.descriptionText}>
-            {' '}
-            ({restaurant.review_count ? restaurant.review_count : ''} ratings)
-            {' • '}
-          </Text>
-          {restaurant.categories.map(
-            (category: RestaurantItem, index: number) => {
-              return (
-                <View key={category.title}>
-                  <Text style={styles.descriptionText}>
-                    {category.title} •{' '}
-                  </Text>
-                </View>
-              );
-            },
-          )}
-          <Text style={styles.priceText}>
-            {restaurant.price ? restaurant.price : '$'}
-          </Text>
-        </View>
-        <Divider />
-        <MenuItems resturantName={restaurant.name} />
-
-        {/* <FlatList
-        data={data.photos}
-        keyExtractor={photos => uuidv4()}
-        renderItem={({item}) => {
-          return <Image source={{uri: item}} style={styles.image} />;
-        }}
-      /> */}
-      </ScrollView>
-      <ViewCart />
-    </View>
+        <Image
+          source={{uri: restaurant.image_url}}
+          style={styles.headerImage}
+        />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{marginBottom: 90}}>
+          <Text style={styles.name}>{restaurant.name}</Text>
+          <View style={styles.description}>
+            <Text style={styles.descriptionText}>
+              ★ {restaurant.rating ? restaurant.rating : ''}
+            </Text>
+            <Text style={styles.descriptionText}>
+              {' '}
+              ({restaurant.review_count ? restaurant.review_count : ''} ratings)
+              {' • '}
+            </Text>
+            {restaurant.categories.map(
+              (category: RestaurantItem, index: number) => {
+                return (
+                  <View key={category.title}>
+                    <Text style={styles.descriptionText}>
+                      {category.title} •{' '}
+                    </Text>
+                  </View>
+                );
+              },
+            )}
+            <Text style={styles.priceText}>
+              {restaurant.price ? restaurant.price : '$'}
+            </Text>
+          </View>
+          <Divider />
+          <MenuItems resturantName={restaurant.name} />
+        </ScrollView>
+        <ViewCart />
+      </View>
+    </>
   );
 };
 

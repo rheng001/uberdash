@@ -21,6 +21,7 @@ module.exports = {
           '@common': './src/common',
           '@components': './src/components',
           '@context': './src/context',
+          '@helpers': './src/helpers',
           '@interfaces': './src/interfaces',
           '@navigation': './src/navigation',
           '@redux': './src/redux',
@@ -29,5 +30,6 @@ module.exports = {
         },
       },
     ],
+    'react-native-reanimated/plugin',
   ],
 };

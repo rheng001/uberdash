@@ -25,20 +25,13 @@ export const cartSlice = createSlice({
   reducers: {
     // addToCart: (state, action: PayloadAction<SelectedItems>) => {
     addToCart: (state, action) => {
-      // return {
-      //   ...state,
-      //   selectedItems: {
-      //     items: [...state.selectedItems.items, action.payload],
-      //     restaurantName: action.payload.restaurantName,
-      //   },
-      // };
       let newState = {...state};
 
       if (action.payload.checkboxValue) {
         console.log('ADD TO CART');
         newState.selectedItems = {
           items: [...newState.selectedItems.items, action.payload],
-          restaurantName: action.payload.restaurantName,
+          restaurantName: action.payload.resturantName,
         };
       } else {
         console.log('REMOVE TO CART');
@@ -49,7 +42,7 @@ export const cartSlice = createSlice({
               item => item.title !== action.payload.title,
             ),
           ],
-          restaurantName: action.payload.restaurantName,
+          restaurantName: action.payload.resturantName,
         };
       }
       return newState;
