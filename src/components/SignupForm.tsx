@@ -14,7 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthStackParams} from '@interfaces/interfaces';
 
-interface LoginFormProps {}
+interface SignupFormProps {}
 
 const validEmail = (value: any) =>
   /^(?=.{1,64}@)(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f]| )*")@(?=.{1,255}$)(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i.test(
@@ -28,6 +28,10 @@ const schema = yup
       .email('Not a valid email')
       .required('Email is required*')
       .test('Enter a valid email', 'Enter a valid email', validEmail),
+    username: yup
+      .string()
+      .required()
+      .min(2, 'A username is required to have at least 2 characters'),
     password: yup
       .string()
       .required()
@@ -37,10 +41,11 @@ const schema = yup
 
 const defaultValues = {
   email_address: '',
+  username: '',
   password: '',
 };
 
-const LoginForm: React.FC<LoginFormProps> = ({}) => {
+const SignupForm: React.FC<SignupFormProps> = ({}) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<AuthStackParams>>();
 
@@ -85,6 +90,27 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
       </View>
       <View style={styles.inputField}>
         <Controller
+          name="username"
+          control={control}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              placeholderTextColor={'#444'}
+              placeholder="Username"
+              autoCapitalize="none"
+              textContentType="name"
+              autoFocus={true}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
+        {errors.email_address && (
+          <Text style={styles.errorText}>{errors.email_address.message}</Text>
+        )}
+      </View>
+      <View style={styles.inputField}>
+        <Controller
           name="password"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -105,9 +131,6 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
           <Text style={styles.errorText}>{errors.password.message}</Text>
         )}
       </View>
-      <View style={{alignItems: 'flex-end', marginBottom: 30}}>
-        <Text style={{color: '#6BB0F5'}}>Forgot Password</Text>
-      </View>
 
       <Pressable
         style={[
@@ -117,13 +140,13 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
         onPress={handleSubmit(onSubmit)}
         // disabled={!isValid || !isDirty}
       >
-        <Text style={styles.buttonText}>Log in</Text>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </Pressable>
 
       <View style={styles.signupContainer}>
-        <Text>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={{color: '#0096F6'}}> Sign up</Text>
+        <Text>Already have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={{color: '#0096F6'}}> Log in</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -164,4 +187,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default SignupForm;
