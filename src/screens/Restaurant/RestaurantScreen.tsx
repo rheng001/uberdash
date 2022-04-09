@@ -98,7 +98,7 @@ const RestaurantScreen = ({route}: Props) => {
             </Text>
           </View>
           <Divider />
-          <MenuItems resturantName={restaurant.name} />
+          <MenuItems resturantName={restaurant.name} hideCheckbox={false} />
         </ScrollView>
         <ViewCart />
       </View>

@@ -116,9 +116,9 @@ const RestaurantScreenStack = () => {
 
 const RootNavigation = () => {
   // const user = useSelector((state: AppState) => state.currentUser)
-  const user = true;
+  const user = false;
   const renderContent = () => {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
 
     if (isLoggedIn || user) {
       return (

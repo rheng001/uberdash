@@ -21,6 +21,7 @@ interface FoodItem {
 
 interface RestaurantName {
   resturantName: string;
+  hideCheckbox: boolean;
 }
 
 const Divider = () => {
@@ -53,7 +54,7 @@ const FoodImage = ({food}: any) => {
   );
 };
 
-const MenuItems = ({resturantName}: RestaurantName) => {
+const MenuItems = ({resturantName, hideCheckbox}: RestaurantName) => {
   const dispatch = useAppDispatch();
   const {selectedItems} = useAppSelector(cartSelector);
 
@@ -69,23 +70,27 @@ const MenuItems = ({resturantName}: RestaurantName) => {
         return (
           <View key={food.id}>
             <View style={styles.menuItemStyle}>
-              <BouncyCheckbox
-                iconStyle={{
-                  borderColor: 'lightgray',
-                  borderRadius: 0,
-                }}
-                fillColor="green"
-                onPress={checkboxValue =>
-                  dispatch(
-                    addToCart({
-                      ...food,
-                      resturantName,
-                      checkboxValue: checkboxValue,
-                    }),
-                  )
-                }
-                isChecked={isFoodInCart(food, cartItems)}
-              />
+              {hideCheckbox ? (
+                <></>
+              ) : (
+                <BouncyCheckbox
+                  iconStyle={{
+                    borderColor: 'lightgray',
+                    borderRadius: 0,
+                  }}
+                  fillColor="green"
+                  onPress={checkboxValue =>
+                    dispatch(
+                      addToCart({
+                        ...food,
+                        resturantName,
+                        checkboxValue: checkboxValue,
+                      }),
+                    )
+                  }
+                  isChecked={isFoodInCart(food, cartItems)}
+                />
+              )}
               <FoodInfo food={food} />
               <FoodImage food={food} />
             </View>

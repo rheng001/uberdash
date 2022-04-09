@@ -12,6 +12,7 @@ import {cartSelector} from '@redux/slices/cartSlice';
 import ModalBottomSheet from '@components/ModalBottomSheet';
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 import {RootStackParams, RestaurantStackParams} from '@interfaces/interfaces';
+import LottieView from 'lottie-react-native';
 
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
@@ -24,6 +25,8 @@ interface ViewCartProps {}
 const ViewCart: React.FC<ViewCartProps> = ({}) => {
   const {selectedItems} = useAppSelector(cartSelector);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
@@ -47,9 +50,14 @@ const ViewCart: React.FC<ViewCartProps> = ({}) => {
     //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     // });
     setModalVisible(false);
-    navigation.navigate('HomeStack', {
-      screen: 'Order',
-    });
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate('HomeStack', {
+        screen: 'Order',
+      });
+    }, 2500);
   };
 
   const checkoutModalContent = () => {
@@ -123,6 +131,27 @@ const ViewCart: React.FC<ViewCartProps> = ({}) => {
               <Text style={styles.textStyle}>View cart ({items.length})</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      ) : (
+        <></>
+      )}
+      {loading ? (
+        <View
+          style={{
+            backgroundColor: 'black',
+            position: 'absolute',
+            opacity: 0.6,
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+            width: '100%',
+          }}>
+          <LottieView
+            style={{height: 200}}
+            source={require('../assets/animations/scanner.json')}
+            autoPlay
+            speed={3}
+          />
         </View>
       ) : (
         <></>
