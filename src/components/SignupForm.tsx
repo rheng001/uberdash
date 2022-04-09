@@ -30,11 +30,11 @@ const schema = yup
       .test('Enter a valid email', 'Enter a valid email', validEmail),
     username: yup
       .string()
-      .required()
+      .required('Username is required*')
       .min(2, 'A username is required to have at least 2 characters'),
     password: yup
       .string()
-      .required()
+      .required('Password is required*')
       .min(6, 'Your password has to have at least 6 characters'),
   })
   .required();
@@ -105,8 +105,8 @@ const SignupForm: React.FC<SignupFormProps> = ({}) => {
             />
           )}
         />
-        {errors.email_address && (
-          <Text style={styles.errorText}>{errors.email_address.message}</Text>
+        {errors.username && (
+          <Text style={styles.errorText}>{errors.username.message}</Text>
         )}
       </View>
       <View style={styles.inputField}>

@@ -4,29 +4,29 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {RootStackParams} from '@interfaces/interfaces';
 
+import {setAuthenticated, authSelector} from '@redux/slices/authSlice';
+import {useAppDispatch, useAppSelector} from '@redux/hooks';
+
 type Props = NativeStackScreenProps<RootStackParams, 'UserStack'>;
 
 const UserScreen = ({navigation}: Props) => {
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('RestaurantStack', {
-            screen: 'Restaurants',
-            params: {
-              id: 5,
-              name: 'poop',
-            },
-          })
-        }>
-        <Text style={{color: 'red'}}>User Screen</Text>
+        onPress={() => {
+          dispatch(setAuthenticated(false));
+        }}>
+        <Text style={{color: 'red'}}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
 });
 
 export default UserScreen;

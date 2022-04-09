@@ -1,12 +1,14 @@
 import {combineReducers, AnyAction, Reducer} from '@reduxjs/toolkit';
 
 //Slices
+import authReducer from '@redux/slices/authSlice';
 import cartReducer from '@redux/slices/cartSlice';
 
 //Services
 
 const combinedReducer = combineReducers({
   //Slices
+  auth: authReducer,
   cart: cartReducer,
 
   //Services

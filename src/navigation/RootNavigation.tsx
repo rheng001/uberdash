@@ -30,6 +30,9 @@ import UserIcon from '@assets/icons/UserIcon';
 import SearchIcon from '@assets/icons/SearchIcon';
 import CartIcon from '@assets/icons/CartIcon';
 
+import {setAuthenticated, authSelector} from '@redux/slices/authSlice';
+import {useAppDispatch, useAppSelector} from '@redux/hooks';
+
 const RootStack = createBottomTabNavigator<RootStackParams>();
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 const HomeStack = createNativeStackNavigator<HomeStackParams>();
@@ -100,27 +103,11 @@ const AuthScreenStack = () => {
   );
 };
 
-const RestaurantScreenStack = () => {
-  return (
-    <RestaurantStack.Navigator
-      initialRouteName="Restaurants"
-      screenOptions={{headerShown: false}}>
-      <RestaurantStack.Screen
-        name="Restaurants"
-        component={RestaurantScreen}
-        options={({route}) => ({title: route.params.name})}
-      />
-    </RestaurantStack.Navigator>
-  );
-};
-
 const RootNavigation = () => {
-  // const user = useSelector((state: AppState) => state.currentUser)
-  const user = false;
-  const renderContent = () => {
-    const isLoggedIn = false;
+  const {isAuthenticated} = useAppSelector(authSelector);
 
-    if (isLoggedIn || user) {
+  const renderContent = () => {
+    if (isAuthenticated) {
       return (
         <RootStack.Navigator
           initialRouteName="HomeStack"
@@ -166,16 +153,6 @@ const RootNavigation = () => {
               tabBarLabel: 'Carts',
             }}
           />
-          {/* <RootStack.Screen
-            name="RestaurantStack"
-            component={RestaurantScreenStack}
-            options={{
-              tabBarIcon: ({color, size}) => (
-                <RestaurantIcon color={color} size={size} />
-              ),
-              tabBarLabel: 'Restaurants',
-            }}
-          /> */}
           <RootStack.Screen
             name="UserStack"
             component={UserScreenStack}

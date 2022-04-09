@@ -14,6 +14,9 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthStackParams} from '@interfaces/interfaces';
 
+import {setAuthenticated, authSelector} from '@redux/slices/authSlice';
+import {useAppDispatch, useAppSelector} from '@redux/hooks';
+
 interface LoginFormProps {}
 
 const validEmail = (value: any) =>
@@ -41,6 +44,7 @@ const defaultValues = {
 };
 
 const LoginForm: React.FC<LoginFormProps> = ({}) => {
+  const dispatch = useAppDispatch();
   const navigation =
     useNavigation<NativeStackNavigationProp<AuthStackParams>>();
 
@@ -57,6 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
 
   const onSubmit = (values: any) => {
     console.log(values);
+    dispatch(setAuthenticated(true));
   };
 
   return (
