@@ -79,7 +79,7 @@ const SignupForm: React.FC<SignupFormProps> = ({}) => {
     } else {
       //add user information to supabase profile table
       //https://supabase.com/docs/reference/dart/upsert
-      const {data, error} = await supabase.from('profiles').insert([
+      const {data, error} = await supabase.from('user').insert([
         {
           id: response.user?.id,
           username: email,
