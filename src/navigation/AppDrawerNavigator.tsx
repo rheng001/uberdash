@@ -33,7 +33,6 @@ const CustomDrawerContent = (props: any) => {
           onPress={async () => {
             await supabase.auth.signOut();
             props.navigation.closeDrawer();
-            //do logout code here
           }}
         />
       </View>
