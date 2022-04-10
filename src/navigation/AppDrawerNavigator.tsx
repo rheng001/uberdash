@@ -1,107 +1,82 @@
-import * as React from 'react';
-import {View, Text} from 'react-native';
-import {QueryClient, QueryClientProvider} from 'react-query';
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import {View, Text, TouchableOpacity, Button, StyleSheet} from 'react-native';
 import {
-  RootStackParams,
-  RestaurantStackParams,
-  UserStackParams,
-} from '@interfaces/interfaces';
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 
-import HomeScreen from '@screens/Home/HomeScreen';
-import RestaurantScreen from '@screens/Restaurant/RestaurantScreen';
-import UserScreen from '@screens/User/UserScreen';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import AppBottomTabNavigator from '@navigation/AppBottomTabNavigator';
+import {
+  BrowseStackNavigator,
+  CartStackNavigator,
+  UserStackNavigator,
+} from '@navigation/AppStackNavigator';
+import {supabase} from '@helpers/supabase-service';
 
-import HomeIcon from '@assets/icons/HomeIcon';
-import RestaurantIcon from '@assets/icons/RestaurantIcon';
-import UserIcon from '@assets/icons/UserIcon';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+const Drawer = createDrawerNavigator();
 
-const queryClient = new QueryClient();
-
-const RootStack = createDrawerNavigator<RootStackParams>();
-const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();
-const UserStack = createNativeStackNavigator<UserStackParams>();
-
-const UserScreenStack = () => {
+const CustomDrawerContent = (props: any) => {
   return (
-    <UserStack.Navigator
-      initialRouteName="User"
-      screenOptions={{headerShown: false}}>
-      <UserStack.Screen name="User" component={UserScreen} />
-      <UserStack.Screen name="Restaurants" component={RestaurantScreen} />
-    </UserStack.Navigator>
-  );
-};
-
-const RestaurantScreenStack = () => {
-  return (
-    <RestaurantStack.Navigator
-      initialRouteName="Restaurants"
-      screenOptions={{headerShown: false}}>
-      <RestaurantStack.Screen
-        name="Restaurants"
-        component={RestaurantScreen}
-        options={({route}) => ({title: route.params.name})}
-      />
-    </RestaurantStack.Navigator>
+    <>
+      <DrawerContentScrollView {...props}>
+        <View style={styles.drawerHeader}>
+          <Text>{supabase.auth.user()?.email}</Text>
+        </View>
+        <View style={{flex: 1}}>
+          <DrawerItemList {...props} />
+        </View>
+      </DrawerContentScrollView>
+      <View>
+        <Button
+          title="LOGOUT"
+          onPress={async () => {
+            await supabase.auth.signOut();
+            props.navigation.closeDrawer();
+            //do logout code here
+          }}
+        />
+      </View>
+    </>
   );
 };
 
 const AppDrawerNavigator = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <RootStack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#f4511e',
-            },
-            // headerShown: false,
-            drawerInactiveTintColor: 'gray',
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}>
-          <RootStack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              drawerIcon: ({color, size}) => (
-                <HomeIcon color={color} size={size} />
-              ),
-              drawerLabel: 'Home',
-            }}
-          />
-          <RootStack.Screen
-            name="UserStack"
-            component={UserScreenStack}
-            options={{
-              drawerIcon: ({color, size}) => (
-                <UserIcon color={color} size={size} />
-              ),
-              drawerLabel: 'Profile',
-            }}
-          />
-          <RootStack.Screen
-            name="RestaurantStack"
-            component={RestaurantScreenStack}
-            options={{
-              drawerIcon: ({color, size}) => (
-                <RestaurantIcon color={color} size={size} />
-              ),
-              drawerLabel: 'Restaurants',
-            }}
-          />
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="Home" component={AppBottomTabNavigator} />
+      <Drawer.Screen name="Browse" component={BrowseStackNavigator} />
+      <Drawer.Screen name="Cart" component={CartStackNavigator} />
+      <Drawer.Screen name="User" component={UserStackNavigator} />
+    </Drawer.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  'modal-container': {
+    flex: 1,
+    alignItems: 'center',
+    borderRadius: 18,
+  },
+  drawerHeader: {
+    height: 100,
+    backgroundColor: '#F1F1F1',
+    margin: 10,
+    marginTop: 0,
+    marginBottom: 8,
+    borderRadius: 8,
+  },
+  buttonContainer: {
+    marginBottom: 30,
+  },
+});
 
 export default AppDrawerNavigator;

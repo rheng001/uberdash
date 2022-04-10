@@ -7,6 +7,8 @@ import {RootStackParams} from '@interfaces/interfaces';
 import {setAuthenticated, authSelector} from '@redux/slices/authSlice';
 import {useAppDispatch, useAppSelector} from '@redux/hooks';
 
+import * as RootNavigation from '@navigation/RootNavigation2';
+
 type Props = NativeStackScreenProps<RootStackParams, 'UserStack'>;
 
 const UserScreen = ({navigation}: Props) => {

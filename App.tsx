@@ -1,4 +1,7 @@
 import 'react-native-gesture-handler';
+
+//URL polyfill for Supabase
+import 'react-native-url-polyfill/auto';
 import * as React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider as ReduxProvider} from 'react-redux';

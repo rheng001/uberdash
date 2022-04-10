@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
   View,
+  Alert,
   Text,
   StyleSheet,
   TextInput,
@@ -14,6 +15,8 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthStackParams} from '@interfaces/interfaces';
 
+import {supabase} from '@helpers/supabase-service';
+
 interface SignupFormProps {}
 
 const validEmail = (value: any) =>
@@ -23,15 +26,15 @@ const validEmail = (value: any) =>
 
 const schema = yup
   .object({
-    email_address: yup
+    email: yup
       .string()
       .email('Not a valid email')
       .required('Email is required*')
       .test('Enter a valid email', 'Enter a valid email', validEmail),
-    username: yup
-      .string()
-      .required('Username is required*')
-      .min(2, 'A username is required to have at least 2 characters'),
+    // username: yup
+    //   .string()
+    //   .required('Username is required*')
+    //   .min(2, 'A username is required to have at least 2 characters'),
     password: yup
       .string()
       .required('Password is required*')
@@ -40,8 +43,8 @@ const schema = yup
   .required();
 
 const defaultValues = {
-  email_address: '',
-  username: '',
+  email: '',
+  // username: '',
   password: '',
 };
 
@@ -60,15 +63,44 @@ const SignupForm: React.FC<SignupFormProps> = ({}) => {
     shouldFocusError: false,
   });
 
-  const onSubmit = (values: any) => {
+  const onSubmit = async (values: any) => {
     console.log(values);
+
+    const {email, password} = values;
+
+    //SIGN UP USER
+    //https://supabase.com/docs/reference/javascript/auth-signup
+    const response = await supabase.auth.signUp({email, password});
+
+    if (response?.error) {
+      //render error
+      Alert.alert('Error Creating user', response?.error?.message);
+      return;
+    } else {
+      //add user information to supabase profile table
+      //https://supabase.com/docs/reference/dart/upsert
+      const {data, error} = await supabase.from('profiles').insert([
+        {
+          id: response.user?.id,
+          username: email,
+          updated_at: new Date(),
+        },
+      ]);
+
+      if (error) {
+        Alert.alert(
+          'Error Creating User: Writing Profile Information',
+          response?.error?.message,
+        );
+      }
+    }
   };
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.inputField}>
         <Controller
-          name="email_address"
+          name="email"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -84,11 +116,11 @@ const SignupForm: React.FC<SignupFormProps> = ({}) => {
             />
           )}
         />
-        {errors.email_address && (
-          <Text style={styles.errorText}>{errors.email_address.message}</Text>
+        {errors.email && (
+          <Text style={styles.errorText}>{errors.email.message}</Text>
         )}
       </View>
-      <View style={styles.inputField}>
+      {/* <View style={styles.inputField}>
         <Controller
           name="username"
           control={control}
@@ -108,7 +140,7 @@ const SignupForm: React.FC<SignupFormProps> = ({}) => {
         {errors.username && (
           <Text style={styles.errorText}>{errors.username.message}</Text>
         )}
-      </View>
+      </View> */}
       <View style={styles.inputField}>
         <Controller
           name="password"

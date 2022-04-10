@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   View,
   Text,
+  Alert,
   StyleSheet,
   TextInput,
   Pressable,
@@ -17,6 +18,8 @@ import {AuthStackParams} from '@interfaces/interfaces';
 import {setAuthenticated, authSelector} from '@redux/slices/authSlice';
 import {useAppDispatch, useAppSelector} from '@redux/hooks';
 
+import {supabase} from '@helpers/supabase-service';
+
 interface LoginFormProps {}
 
 const validEmail = (value: any) =>
@@ -26,7 +29,7 @@ const validEmail = (value: any) =>
 
 const schema = yup
   .object({
-    email_address: yup
+    email: yup
       .string()
       .email('Not a valid email')
       .required('Email is required*')
@@ -39,7 +42,7 @@ const schema = yup
   .required();
 
 const defaultValues = {
-  email_address: '',
+  email: '',
   password: '',
 };
 
@@ -59,16 +62,23 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
     shouldFocusError: false,
   });
 
-  const onSubmit = (values: any) => {
+  const onSubmit = async (values: any) => {
     console.log(values);
-    dispatch(setAuthenticated(true));
+    // dispatch(setAuthenticated(true));
+    const response = await supabase.auth.signIn(values);
+
+    if (response?.error) {
+      //render error
+      Alert.alert('Error Logging in', response?.error?.message);
+      return;
+    }
   };
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.inputField}>
         <Controller
-          name="email_address"
+          name="email"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -84,8 +94,8 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
             />
           )}
         />
-        {errors.email_address && (
-          <Text style={styles.errorText}>{errors.email_address.message}</Text>
+        {errors.email && (
+          <Text style={styles.errorText}>{errors.email.message}</Text>
         )}
       </View>
       <View style={styles.inputField}>

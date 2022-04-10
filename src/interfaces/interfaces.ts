@@ -65,6 +65,7 @@ export type RootStackParams = {
   CartStack: CartStackParams;
   UserStack: UserStackParams;
   RestaurantStack: NavigatorScreenParams<RestaurantStackParams>;
+  DrawerStack: NavigatorScreenParams<HomeStackParams>;
   Restaurants: {
     id: number;
     name: string;
