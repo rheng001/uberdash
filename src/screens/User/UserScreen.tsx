@@ -16,6 +16,7 @@ const UserScreen = ({navigation}: Props) => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
+    //query supabase to get info
     const id = supabase.auth.user()?.id;
 
     (async () => {

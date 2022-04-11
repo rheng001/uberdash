@@ -8,6 +8,9 @@ import UserScreen from '@screens/User/UserScreen';
 
 import LoginScreen from '@screens/Login/LoginScreen';
 import SignUpScreen from '@screens/SignUp/SignUpScreen';
+import OrderScreen from '@screens/Cart/OrderScreen';
+
+import RestaurantScreen from '@screens/Restaurant/RestaurantScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +27,8 @@ const HomeStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Restaurants" component={RestaurantScreen} />
+      <Stack.Screen name="Order" component={OrderScreen} />
     </Stack.Navigator>
   );
 };

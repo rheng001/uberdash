@@ -14,7 +14,7 @@ const RootNavigation = () => {
     //set local auth variable with supabase session
     setSession(supabase.auth.session());
 
-    //supabase auth listens for state changes to see if logged in or not
+    //supabase auth always listens for state changes to see if logged in or not
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
